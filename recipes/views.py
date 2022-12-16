@@ -6,3 +6,7 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, 'recipes/pages/home.html')
+
+
+def insert(request, id):
+    return render(request, 'recipes/pages/insert-view.html')

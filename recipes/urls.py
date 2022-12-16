@@ -1,8 +1,9 @@
 from django.urls import path
 
-from recipes.views import home
+from recipes import views
 
 urlpatterns = [
-    path('', home),  # Home
+    path('', views.home),  # Home
+    path('insert/<int:id>/', views.insert),  # Insert
 
 ]
