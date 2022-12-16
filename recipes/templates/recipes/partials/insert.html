@@ -1,32 +1,39 @@
 
  <div class="insert insert-list-item">
     <div class="insert-cover">
-        <img src="https://via.placeholder.com/1280x720.png/269fe6" alt="Temporario">
+        <a href="{% url 'insert:insert' process.id %}">
+        <img src={{process.cover.url}} alt="Temporario">
+        </a>
     </div>
     <div class="insert-title-container">
-        <h2 class="insert-title">Lorem ipsum dolor sit amet.</h2>
+            
+        <h2 class="insert-title">
+            <a href="{% url 'insert:insert' process.id %}">
+            {{ process.title }}
+            </a>
+        </h2>
     </div>
 
 
     <div class="insert-author">
         <span class="insert-author-item">
             <i class="fas fa-user"></i>
-            Danilo Ferreira
+            {{ process.author.first_name }} {{ process.author.last_name }}
         </span>
         <span class="insert-author-item">
             <i class="fas fa-calendar-alt"></i>
-            15/12/2022 às 22:00
+            {{ process.created_at|date:"d/m/Y "}} às {{ process.created_at|date:"H:i"}}
         </span>
         <span class="insert-author-item">
             <a href="/insert/category/cafe-da-manha/">
                 <i class="fas fa-layer-group"></i>
-                <span>Processo Moove</span>
+                <span>{{ process.category.name}} </span>
             </a>
         </span>
     </div>
     
     <div class="insert-content">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit quae omnis molestiae officiis autem nostrum.</p>
+        <p>{{ process.description}}</p>
     </div>
 
 
@@ -34,23 +41,34 @@
         <div class="insert-meta recipe-preparation">
             <h3 class="insert-meta-title"><i class="fas fa-stopwatch"></i>Tempo Execução</h3>
             <div class="insert-meta-text">
-                0 Minutos
+                {{ process.process_time}} {{ process.process_time_unit}}
             </div>
         </div>
         <div class="insert-meta recipe-servings">
             <h3 class="insert-meta-title"><i class="fa-solid fa-gears"></i> Dificuldade</h3>
             <div class="insert-meta-text">
-                Facil
+                {{ process.difficulty_unit}}
             </div>
         </div>
     </div>
 
+    {% if is_detail_page is not True %}
 
-    <footer class="insert-footer">
-        <a class="insert-read-more button button-dark button-full-width" href="/insert/3/">
-            <i class="fas fa-eye"></i>
-            <span>ver mais...</span>
-        </a>
-    </footer>
+        <footer class="insert-footer">
+            <a class="insert-read-more button button-dark button-full-width" href="{% url 'insert:insert' process.id %}">
+                <i class="fas fa-eye"></i>
+                <span>ver mais...</span>
+            </a>
+        </footer>
+
+    {% endif %}
+
+    {% if is_detail_page is  True %}
+
+        <div class="process-steps">
+            {{ process.process|linebreaks }}
+        </div>
+
+    {% endif %}
 
 </div>
